@@ -3,15 +3,15 @@
     <div class="modal" :class="modalClass">
       <button class="modal-close" @click="$emit('close')">✕</button>
 
-      <div v-if="prize_type === 'hoofdprijs'" class="modal-content hoofdprijs">
+      <div v-if="prize_type === 'jackpot'" class="modal-content jackpot">
         <h2 class="modal-title">Jackpot!</h2>
-        <p class="modal-bedrag">€ {{ Hoofdprijs_bedrag }}</p>
-        <p class="modal-sub">Gefeliciteerd! U heeft de hoofdprijs gewonnen.</p>
+        <p class="modal-bedrag">€ {{ jackpot_amount }}</p>
+        <p class="modal-sub">Gefeliciteerd! U heeft de jackpot gewonnen.</p>
       </div>
 
-      <div v-else-if="prize_type === 'troostprijs'" class="modal-content troostprijs">
+      <div v-else-if="prize_type === 'consolation_prize'" class="modal-content consolation_prize">
         <h2 class="modal-title">Troostprijs</h2>
-        <p class="modal-bedrag">€ {{ Troostprijs_bedrag }}</p>
+        <p class="modal-bedrag">€ {{ consolation_prize_amount }}</p>
         <p class="modal-sub">Gefeliciteerd! U heeft een troostprijs gewonnen.</p>
       </div>
 
@@ -34,13 +34,13 @@ const props = defineProps({
   prize: { type: Number, default: 0 },
 })
 
-const { Hoofdprijs_bedrag, Troostprijs_bedrag } = useCalendar()
+const { jackpot_amount, consolation_prize_amount } = useCalendar()
 
 defineEmits(['close'])
 
 const prize_type = computed(() => {
-  if (props.prize === 25000) return 'hoofdprijs'
-  if (props.prize === 100) return 'troostprijs'
+  if (props.prize === 25000) return 'jackpot'
+  if (props.prize === 100) return 'consolation_prize'
   return 'leeg'
 })
 
@@ -94,8 +94,8 @@ const modalClass = computed(() => `modal--${prize_type.value}`)
   color: var(--text);
 }
 
-.hoofdprijs .modal-title { color: var(--gold-light); }
-.troostprijs .modal-title { color: var(--green); }
+.jackpot .modal-title { color: var(--gold-light); }
+.consolation_prize .modal-title { color: var(--green); }
 
 .modal-bedrag {
   font-size: 36px;
@@ -103,8 +103,8 @@ const modalClass = computed(() => `modal--${prize_type.value}`)
   margin-bottom: 12px;
 }
 
-.hoofdprijs .modal-bedrag { color: var(--gold); }
-.troostprijs .modal-bedrag { color: var(--green); }
+.jackpot .modal-bedrag { color: var(--gold); }
+.consolation_prize .modal-bedrag { color: var(--green); }
 
 .modal-sub {
   color: var(--muted);

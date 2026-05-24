@@ -3,9 +3,9 @@
       class="cell"
       :class="{
       'cell--open': isOpen,
-      'cell--hoofdprijs': isOpen && prize === 25000,
-      'cell--troostprijs': isOpen && prize === 100,
-      'cell--leeg': isOpen && prize === 0,
+      'cell--jackpot': isOpen && prize === 25000,
+      'cell--consolation_prize': isOpen && prize === 100,
+      'cell--empty': isOpen && prize === 0,
     }"
       @click="$emit('click', index)"
   >
@@ -63,17 +63,17 @@ defineEmits(['click'])
   animation: flipIn 0.3s ease both;
 }
 
-.cell--leeg {
+.cell--empty {
   background: var(--cell-open-empty);
   border-color: #1a1a1f;
 }
 
-.cell--troostprijs {
+.cell--consolation_prize {
   background: rgba(76, 175, 130, 0.12);
   border-color: rgba(76, 175, 130, 0.4);
 }
 
-.cell--hoofdprijs {
+.cell--jackpot {
   background: rgba(201, 168, 76, 0.15);
   border-color: var(--gold);
   box-shadow: 0 0 8px rgba(201, 168, 76, 0.3);

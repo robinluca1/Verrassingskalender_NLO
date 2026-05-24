@@ -28,18 +28,18 @@ import {useCalendar} from './CalendarComposer.js'
 import Calendar from './components/Calendar.vue'
 import Modal from './components/Modal.vue'
 
-const { isOpen, getPrize, openVakje, resetGame, Total } = useCalendar()
+const { isOpen, getPrize, OpenSquare, resetGame, Total } = useCalendar()
 const modalVisible = ref(false)
 const lastPrize = ref(0)
 
 // function getPrizeType(prize) {
-//   if (prize === Hoofdprijs_bedrag) return "hoofdprijs"
-//   if (prize === Troostprijs_bedrag) return "troostprijs"
+//   if (prize === jackpot_amount) return "jackpot"
+//   if (prize === consolation_prize_amount) return "consolation_prize"
 // }
 
 function handleOpen(index) {
   if (isOpen(index)) return
-  lastPrize.value = openVakje(index)
+  lastPrize.value = OpenSquare(index)
   modalVisible.value = true
 }
 

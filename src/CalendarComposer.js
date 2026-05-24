@@ -1,11 +1,11 @@
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 const grid_rows = 100
 const grid_cols = 100
-const hoofdprijs_aantal = 1
-const hoofdprijs_bedrag = 25000
-const troostprijs_aantal = 100
-const troostprijs_bedrag = 100
+const jackpot_count = 1
+const jackpot_amount = 25000
+const consolation_prize_count = 100
+const consolation_prize_amount = 100
 
 
 const total = grid_rows * grid_cols
@@ -18,26 +18,26 @@ function generatePrizes() {
         prizes[i] = 0
     }
 
-    const beschikbaar = []
+    const available = []
     for (let i = 0; i < total; i++) {
-        beschikbaar[i] = i
+        available[i] = i
     }
 
     function ChooseSquare() {
-        const index = Math.floor(Math.random() * beschikbaar.length)
-        const vakje = beschikbaar[index]
-        beschikbaar[index] = beschikbaar[beschikbaar.length - 1]
-        beschikbaar.pop()
-        return vakje
+        const index = Math.floor(Math.random() * available.length)
+        const square = available[index]
+        available[index] = available[available.length - 1]
+        available.pop()
+        return square
     }
 
     // Berekenen welke vakjes prijzen krijgen
-    for (let i = 0; i < hoofdprijs_aantal; i++) {
-        prizes[ChooseSquare()] = hoofdprijs_bedrag
+    for (let i = 0; i < jackpot_count; i++) {
+        prizes[ChooseSquare()] = jackpot_amount
     }
 
-    for (let i = 0; i < troostprijs_aantal; i++) {
-        prizes[ChooseSquare()] = troostprijs_bedrag
+    for (let i = 0; i < consolation_prize_count; i++) {
+        prizes[ChooseSquare()] = consolation_prize_amount
     }
 
     return prizes
@@ -67,7 +67,7 @@ export function useCalendar() {
     }
 
 
-    function openVakje(index) {
+    function openSquare(index) {
         if (opened.value.has(index)) return null
         opened.value = new Set(opened.value)
         opened.value.add(index)
@@ -96,14 +96,14 @@ export function useCalendar() {
     return {
         prizes,
         opened,
-        openVakje,
+        OpenSquare: openSquare,
         isOpen,
         getPrize,
         resetGame,
         Total: total,
         Grid_rows: grid_rows,
         Grid_cols: grid_cols,
-        Hoofdprijs_bedrag: hoofdprijs_bedrag,
-        Troostprijs_bedrag: troostprijs_bedrag,
+        jackpot_amount: jackpot_amount,
+        consolation_prize_amount: consolation_prize_amount,
     }
 }
