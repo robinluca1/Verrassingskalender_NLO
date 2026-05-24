@@ -23,7 +23,7 @@ defineProps({
 
 defineEmits(['open'])
 
-const { Totaal: total, Grid_cols } = useCalendar()
+const { Total: total, Grid_cols } = useCalendar()
 
 const gridStyle = computed(() => ({
   gridTemplateColumns: `repeat(${Grid_cols}, minmax(0, 1fr))`,

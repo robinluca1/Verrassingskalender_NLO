@@ -8,22 +8,22 @@ const troostprijs_aantal = 100
 const troostprijs_bedrag = 100
 
 
-const totaal = grid_rows * grid_cols
+const total = grid_rows * grid_cols
 const Storage_prizes = 'prizes'
 const Storage_opened = 'opened'
 
 function generatePrizes() {
     const prizes = []
-    for (let i = 0; i < totaal; i++) {
+    for (let i = 0; i < total; i++) {
         prizes[i] = 0
     }
 
     const beschikbaar = []
-    for (let i = 0; i < totaal; i++) {
+    for (let i = 0; i < total; i++) {
         beschikbaar[i] = i
     }
 
-    function kiesVakje() {
+    function ChooseSquare() {
         const index = Math.floor(Math.random() * beschikbaar.length)
         const vakje = beschikbaar[index]
         beschikbaar[index] = beschikbaar[beschikbaar.length - 1]
@@ -31,12 +31,13 @@ function generatePrizes() {
         return vakje
     }
 
+    // Berekenen welke vakjes prijzen krijgen
     for (let i = 0; i < hoofdprijs_aantal; i++) {
-        prizes[kiesVakje()] = hoofdprijs_bedrag
+        prizes[ChooseSquare()] = hoofdprijs_bedrag
     }
 
     for (let i = 0; i < troostprijs_aantal; i++) {
-        prizes[kiesVakje()] = troostprijs_bedrag
+        prizes[ChooseSquare()] = troostprijs_bedrag
     }
 
     return prizes
@@ -99,7 +100,7 @@ export function useCalendar() {
         isOpen,
         getPrize,
         resetGame,
-        Totaal: totaal,
+        Total: total,
         Grid_rows: grid_rows,
         Grid_cols: grid_cols,
         Hoofdprijs_bedrag: hoofdprijs_bedrag,

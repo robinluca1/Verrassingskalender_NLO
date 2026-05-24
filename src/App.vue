@@ -3,7 +3,7 @@
     <header class="header">
       <div class="header-left">
         <h1 class="title">Verrassingskalender 2026</h1>
-        <p class="tagline">10.000 vakjes · 1 hoofdprijs · 100 troostprijzen</p>
+        <p class="tagline"> {{Total}} vakjes · 1 hoofdprijs · 100 troostprijzen</p>
       </div>
       <button class="reset-btn" @click="resetGame()">Reset</button>
     </header>
@@ -23,19 +23,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useCalendar } from './CalendarComposer.js'
+import {ref} from 'vue'
+import {useCalendar} from './CalendarComposer.js'
 import Calendar from './components/Calendar.vue'
 import Modal from './components/Modal.vue'
 
-const { isOpen, getPrize, openVakje, resetGame } = useCalendar()
+const { isOpen, getPrize, openVakje, resetGame, Total } = useCalendar()
 const modalVisible = ref(false)
 const lastPrize = ref(0)
 
+// function getPrizeType(prize) {
+//   if (prize === Hoofdprijs_bedrag) return "hoofdprijs"
+//   if (prize === Troostprijs_bedrag) return "troostprijs"
+// }
+
 function handleOpen(index) {
   if (isOpen(index)) return
-  const prize = openVakje(index)
-  lastPrize.value = prize
+  lastPrize.value = openVakje(index)
   modalVisible.value = true
 }
 

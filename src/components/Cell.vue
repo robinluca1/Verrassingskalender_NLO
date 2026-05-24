@@ -15,7 +15,7 @@
 
 <script setup>
 
-const props = defineProps({
+defineProps({
   index: { type: Number, required: true },
   isOpen: { type: Boolean, default: false },
   prize: { type: Number, default: 0 },

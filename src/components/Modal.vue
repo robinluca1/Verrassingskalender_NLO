@@ -5,13 +5,13 @@
 
       <div v-if="prize_type === 'hoofdprijs'" class="modal-content hoofdprijs">
         <h2 class="modal-title">Jackpot!</h2>
-        <p class="modal-bedrag">€ 10.000)</p>
+        <p class="modal-bedrag">€ {{ Hoofdprijs_bedrag }}</p>
         <p class="modal-sub">Gefeliciteerd! U heeft de hoofdprijs gewonnen.</p>
       </div>
 
       <div v-else-if="prize_type === 'troostprijs'" class="modal-content troostprijs">
         <h2 class="modal-title">Troostprijs</h2>
-        <p class="modal-bedrag">€ 100</p>
+        <p class="modal-bedrag">€ {{ Troostprijs_bedrag }}</p>
         <p class="modal-sub">Gefeliciteerd! U heeft een troostprijs gewonnen.</p>
       </div>
 
@@ -20,18 +20,21 @@
         <p class="modal-sub">U heeft geen prijs gewonnen. Probeer een ander vakje!</p>
       </div>
 
-      <button class="modal-btn" @click="$emit('close')">Verder spelen</button>
+      <button class="modal-btn" @click="$emit('close')">Doorgaan</button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import { useCalendar } from "../CalendarComposer.js";
 
 const props = defineProps({
   visible: Boolean,
   prize: { type: Number, default: 0 },
 })
+
+const { Hoofdprijs_bedrag, Troostprijs_bedrag } = useCalendar()
 
 defineEmits(['close'])
 
