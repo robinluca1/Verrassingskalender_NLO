@@ -3,8 +3,8 @@
       class="cell"
       :class="{
       'cell--open': isOpen,
-      'cell--jackpot': isOpen && prize === 25000,
-      'cell--consolation_prize': isOpen && prize === 100,
+      'cell--jackpot': isOpen && prize === jackpot_amount,
+      'cell--consolation_prize': isOpen && prize === consolation_prize_amount,
       'cell--empty': isOpen && prize === 0,
     }"
       @click="$emit('click', index)"
@@ -14,11 +14,14 @@
 </template>
 
 <script setup>
+import {useCalendar} from "../CalendarComposer.js";
+
+const {jackpot_amount, consolation_prize_amount} = useCalendar()
 
 defineProps({
-  index: { type: Number, required: true },
-  isOpen: { type: Boolean, default: false },
-  prize: { type: Number, default: 0 },
+  index: {type: Number, required: true},
+  isOpen: {type: Boolean, default: false},
+  prize: {type: Number, default: 0},
 })
 
 defineEmits(['click'])
@@ -53,7 +56,7 @@ defineEmits(['click'])
 }
 
 .cell-num {
-  font-size: clamp(4px, 0.8vw, 9px);
+  font-size: clamp(4px, 0.8vw, 8px);
   font-weight: 500;
   line-height: 1;
 }

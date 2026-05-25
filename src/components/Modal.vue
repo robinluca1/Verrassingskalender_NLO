@@ -1,21 +1,21 @@
 <template>
   <div v-if="visible" class="modal-backdrop" @click.self="$emit('close')">
-    <div class="modal" :class="modalClass">
+    <div class="modal" :class="`${prize_type}`">
       <button class="modal-close" @click="$emit('close')">✕</button>
 
-      <div v-if="prize_type === 'jackpot'" class="modal-content jackpot">
+      <div v-if="prize_type === 'jackpot'" class="jackpot">
         <h2 class="modal-title">Jackpot!</h2>
-        <p class="modal-bedrag">€ {{ jackpot_amount }}</p>
+        <p class="modal-bedrag">€ {{ prize.toLocaleString('nl-NL') }}</p>
         <p class="modal-sub">Gefeliciteerd! U heeft de jackpot gewonnen.</p>
       </div>
 
-      <div v-else-if="prize_type === 'consolation_prize'" class="modal-content consolation_prize">
+      <div v-else-if="prize_type === 'consolation_prize'" class="consolation_prize">
         <h2 class="modal-title">Troostprijs</h2>
-        <p class="modal-bedrag">€ {{ consolation_prize_amount }}</p>
+        <p class="modal-bedrag">€ {{ prize.toLocaleString('nl-NL') }}</p>
         <p class="modal-sub">Gefeliciteerd! U heeft een troostprijs gewonnen.</p>
       </div>
 
-      <div v-else class="modal-content leeg">
+      <div v-else class="niets">
         <h2 class="modal-title">Helaas...</h2>
         <p class="modal-sub">U heeft geen prijs gewonnen. Probeer een ander vakje!</p>
       </div>
@@ -26,25 +26,16 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useCalendar } from "../CalendarComposer.js";
-
-const props = defineProps({
+defineProps({
   visible: Boolean,
-  prize: { type: Number, default: 0 },
+  prize_type: {
+    type: String
+  },
+  prize: {type: Number},
 })
-
-const { jackpot_amount, consolation_prize_amount } = useCalendar()
 
 defineEmits(['close'])
 
-const prize_type = computed(() => {
-  if (props.prize === 25000) return 'jackpot'
-  if (props.prize === 100) return 'consolation_prize'
-  return 'leeg'
-})
-
-const modalClass = computed(() => `modal--${prize_type.value}`)
 </script>
 
 <style scoped>
@@ -85,7 +76,10 @@ const modalClass = computed(() => `modal--${prize_type.value}`)
   border-radius: 4px;
   transition: color 0.15s;
 }
-.modal-close:hover { color: var(--text); }
+
+.modal-close:hover {
+  color: var(--text);
+}
 
 .modal-title {
   font-size: 28px;
@@ -94,8 +88,13 @@ const modalClass = computed(() => `modal--${prize_type.value}`)
   color: var(--text);
 }
 
-.jackpot .modal-title { color: var(--gold-light); }
-.consolation_prize .modal-title { color: var(--green); }
+.modal.jackpot .modal-title {
+  color: var(--gold-light);
+}
+
+.modal.consolation_prize .modal-title {
+  color: var(--green);
+}
 
 .modal-bedrag {
   font-size: 36px;
@@ -103,8 +102,13 @@ const modalClass = computed(() => `modal--${prize_type.value}`)
   margin-bottom: 12px;
 }
 
-.jackpot .modal-bedrag { color: var(--gold); }
-.consolation_prize .modal-bedrag { color: var(--green); }
+.modal.jackpot .modal-bedrag {
+  color: var(--gold);
+}
+
+.modal.consolation_prize .modal-bedrag {
+  color: var(--green);
+}
 
 .modal-sub {
   color: var(--muted);
@@ -123,6 +127,7 @@ const modalClass = computed(() => `modal--${prize_type.value}`)
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
 }
+
 .modal-btn:hover {
   background: #2e2e3a;
   border-color: var(--muted);
