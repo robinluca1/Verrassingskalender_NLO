@@ -1,5 +1,21 @@
-# Vue 3 + Vite
+# Verrassingskalender Nederlandse Loterij
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Simpele webapplicatie voor het NLO kansspel. Toont een klikbare grid van 100 bij 100 vakjes met 101 prijzen
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Prijsverdeling
+
+- 1 hoofdprijs van 25.000 euro
+- 100 troostprijzen van 100 euro
+
+## Vereisten
+
+Node.js 18 of hoger.
+
+## Installeren en starten
+
+```bash
+npm install
+npm run dev
+```
+
+Open daarna localhost in de browser.
