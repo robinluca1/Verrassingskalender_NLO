@@ -1,7 +1,7 @@
 import {ref} from 'vue'
 
-const grid_rows = 10
-const grid_cols = 10
+const grid_rows = 100
+const grid_cols = 100
 const jackpot_count = 1
 const jackpot_amount = 25000
 const consolation_prize_count = 100

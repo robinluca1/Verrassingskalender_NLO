@@ -4,6 +4,7 @@
       <button class="modal-close" @click="$emit('close')">✕</button>
 
       <div v-if="prize_type === 'jackpot'" class="jackpot">
+        <confetti-explosion />
         <h2 class="modal-title">Jackpot!</h2>
         <p class="modal-bedrag">€ {{ prize.toLocaleString('nl-NL') }}</p>
         <p class="modal-sub">Gefeliciteerd! U heeft de jackpot gewonnen.</p>
@@ -26,6 +27,8 @@
 </template>
 
 <script setup>
+import ConfettiExplosion from "vue-confetti-explosion";
+
 defineProps({
   visible: Boolean,
   prize_type: {
@@ -88,22 +91,22 @@ defineEmits(['close'])
   color: var(--text);
 }
 
-.modal.jackpot .modal-title {
-  color: var(--gold-light);
-}
-
-.modal.consolation_prize .modal-title {
-  color: var(--green);
-}
-
 .modal-bedrag {
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 12px;
 }
 
+.modal.jackpot .modal-title {
+  color: var(--gold-light);
+}
+
 .modal.jackpot .modal-bedrag {
   color: var(--gold);
+}
+
+.modal.consolation_prize .modal-title {
+  color: var(--green);
 }
 
 .modal.consolation_prize .modal-bedrag {
